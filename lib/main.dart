@@ -51,26 +51,26 @@ class _MyHomePageState extends State<MyHomePage> {
   final isIOS = Platform.isIOS;
 
   final List<Transaction> _userTransaction = [
-    Transaction(
-        id: "t1",
-        title: "New Shoes",
-        amount: 7100,
-        date: DateTime.now().subtract(Duration(days: 1))),
-    Transaction(
-        id: "t4",
-        title: "Rent",
-        amount: 9500,
-        date: DateTime.now().subtract(Duration(days: 2))),
-    Transaction(
-        id: "t3",
-        title: "Trip to Goa",
-        amount: 9700,
-        date: DateTime.now().subtract(Duration(days: 3))),
-    Transaction(
-        id: "t4",
-        title: "Food",
-        amount: 1500,
-        date: DateTime.now().subtract(Duration(days: 4))),
+    // Transaction(
+    //     id: "t1",
+    //     title: "New Shoes",
+    //     amount: 7100,
+    //     date: DateTime.now().subtract(Duration(days: 1))),
+    // Transaction(
+    //     id: "t4",
+    //     title: "Rent",
+    //     amount: 9500,
+    //     date: DateTime.now().subtract(Duration(days: 2))),
+    // Transaction(
+    //     id: "t3",
+    //     title: "Trip to Goa",
+    //     amount: 9700,
+    //     date: DateTime.now().subtract(Duration(days: 3))),
+    // Transaction(
+    //     id: "t4",
+    //     title: "Food",
+    //     amount: 1500,
+    //     date: DateTime.now().subtract(Duration(days: 4))),
   ];
 
   bool _showChart = false;
