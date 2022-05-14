@@ -1,6 +1,8 @@
-# expense_tracker
+### Expense Tracker
 
-A new Flutter project.
+## Screenshots
+<img src="https://user-images.githubusercontent.com/71591136/168442990-adc1a7b2-b540-4e2d-af9c-a939f37f0bb6.jpg" alt="Screenshot_20220514-231410" style="width: 300px;">&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://user-images.githubusercontent.com/71591136/168442993-c423fb90-a0e1-41b8-b4d1-98829aa1a666.jpg" alt="Screenshot_20220514-231410" style="width: 300px;">&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://user-images.githubusercontent.com/71591136/168442994-9e7d41a1-1fa8-4cd8-82ee-e9ea5380f3a2.jpg" alt="Screenshot_20220514-231410" style="width: 300px;">
+
 
 ## Getting Started
 
