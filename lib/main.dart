@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:expense_tracker/db/expense_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -50,7 +51,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final isIOS = Platform.isIOS;
 
-  final List<Expense> _userExpense = [
+  List<Expense> _userExpense = [
     // Expense(
     //     id: "t1",
     //     title: "New Shoes",
