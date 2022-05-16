@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 import 'adaptive_button.dart';
 
-import '../models/transaction.dart';
+import '../models/expense.dart';
 
 class NewExpense extends StatefulWidget {
   final void Function(Expense) addExpense;
