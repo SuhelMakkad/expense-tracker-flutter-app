@@ -8,7 +8,7 @@ import './widgets/chart.dart';
 import './widgets/transaction_list.dart';
 import './widgets/new_transaction.dart';
 
-import './models/transaction.dart';
+import 'models/expense.dart';
 
 void main() => runApp(const MyApp());
 

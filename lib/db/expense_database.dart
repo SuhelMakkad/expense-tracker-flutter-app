@@ -1,7 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../models/transaction.dart';
+import '../models/expense.dart';
 
 class ExpenseDatabase {
   static final ExpenseDatabase instance = ExpenseDatabase();
