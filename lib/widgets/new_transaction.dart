@@ -1,22 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 import 'adaptive_button.dart';
 
-class NewTransaction extends StatefulWidget {
-  final void Function(String, double, DateTime) addTransaction;
+import '../models/transaction.dart';
 
-  NewTransaction(this.addTransaction);
+class NewExpense extends StatefulWidget {
+  final void Function(Expense) addExpense;
+
+  NewExpense(this.addExpense);
 
   @override
-  State<NewTransaction> createState() => _NewTransactionState();
+  State<NewExpense> createState() => _NewExpenseState();
 }
 
-class _NewTransactionState extends State<NewTransaction> {
+class _NewExpenseState extends State<NewExpense> {
+  var uuid = Uuid();
+
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
 
   DateTime? _selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   void _handleSubmit() {
     if (_amountController.text.isEmpty) {
@@ -30,13 +40,23 @@ class _NewTransactionState extends State<NewTransaction> {
       return;
     }
 
-    widget.addTransaction(
-      enteredTitle,
-      enteredAmount,
-      (_selectedDate as DateTime),
+    var id = uuid.v4();
+    var newExpense = Expense(
+      id: id,
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: (_selectedDate as DateTime),
     );
+
+    widget.addExpense(newExpense);
+    // _setExpenseToLocal(newExpense);
+
     Navigator.of(context).pop();
   }
+
+  // void _setExpenseToLocal(Expense transaction) async {
+  //   var prefs = await SharedPreferences.getInstance();
+  // }
 
   void _presentDatePicker() {
     showDatePicker(
@@ -97,7 +117,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 ),
               ),
               ElevatedButton(
-                child: const Text("Add Transaction"),
+                child: const Text("Add Expense"),
                 onPressed: _handleSubmit,
                 style: ElevatedButton.styleFrom(
                   primary: Colors.purple,

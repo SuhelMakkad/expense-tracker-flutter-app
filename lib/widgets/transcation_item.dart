@@ -3,15 +3,15 @@ import 'package:intl/intl.dart';
 
 import '../models/transaction.dart';
 
-class TransactionItem extends StatelessWidget {
-  const TransactionItem({
+class ExpenseItem extends StatelessWidget {
+  const ExpenseItem({
     Key? key,
     required this.transaction,
-    required this.deleteTransaction,
+    required this.deleteExpense,
   }) : super(key: key);
 
-  final Transaction transaction;
-  final Function(String p1) deleteTransaction;
+  final Expense transaction;
+  final Function(String p1) deleteExpense;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class TransactionItem extends StatelessWidget {
                 style: TextButton.styleFrom(
                   primary: ThemeData.light().errorColor,
                 ),
-                onPressed: () => deleteTransaction(transaction.id),
+                onPressed: () => deleteExpense(transaction.id),
                 icon: const Icon(
                   Icons.delete,
                 ),
@@ -51,7 +51,7 @@ class TransactionItem extends StatelessWidget {
                 icon: const Icon(
                   Icons.delete,
                 ),
-                onPressed: () => deleteTransaction(transaction.id),
+                onPressed: () => deleteExpense(transaction.id),
               ),
       ),
     );

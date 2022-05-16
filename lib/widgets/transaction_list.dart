@@ -4,13 +4,13 @@ import 'package:intl/intl.dart';
 import './transcation_item.dart';
 import '../models/transaction.dart';
 
-class TransactionList extends StatelessWidget {
-  final List<Transaction> transactions;
-  final Function(String) deleteTransaction;
+class ExpenseList extends StatelessWidget {
+  final List<Expense> transactions;
+  final Function(String) deleteExpense;
 
-  TransactionList(
+  ExpenseList(
     this.transactions,
-    this.deleteTransaction,
+    this.deleteExpense,
   );
 
   @override
@@ -38,10 +38,10 @@ class TransactionList extends StatelessWidget {
           )
         : ListView.builder(
             itemBuilder: (ctx, index) {
-              Transaction transaction = transactions[index];
-              return TransactionItem(
+              Expense transaction = transactions[index];
+              return ExpenseItem(
                   transaction: transaction,
-                  deleteTransaction: deleteTransaction);
+                  deleteExpense: deleteExpense);
             },
             itemCount: transactions.length,
           );

@@ -5,17 +5,17 @@ import '../widgets/chart_bar.dart';
 import '../models/transaction.dart';
 
 class Chart extends StatelessWidget {
-  final List<Transaction> recentTransactions;
+  final List<Expense> recentExpenses;
 
-  Chart(this.recentTransactions);
+  Chart(this.recentExpenses);
 
-  List<Map<String, Object>> get groupedTransactions {
+  List<Map<String, Object>> get groupedExpenses {
     return List.generate(7, (index) {
       final weekDay = DateTime.now().subtract(Duration(days: index));
       var totalSum = 0.0;
 
-      for (var i = 0; i < recentTransactions.length; i++) {
-        final transaction = recentTransactions[i];
+      for (var i = 0; i < recentExpenses.length; i++) {
+        final transaction = recentExpenses[i];
 
         if (DateFormat.yMEd().format(transaction.date) ==
             DateFormat.yMEd().format(weekDay)) {
@@ -31,7 +31,7 @@ class Chart extends StatelessWidget {
   }
 
   double get totalAmountSpentInAWeek {
-    return groupedTransactions.fold(0, (previousValue, transaction) {
+    return groupedExpenses.fold(0, (previousValue, transaction) {
       return previousValue += double.parse(transaction["amount"] as String);
     });
   }
@@ -45,7 +45,7 @@ class Chart extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 10, top: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: groupedTransactions.map((transaction) {
+          children: groupedExpenses.map((transaction) {
             return Flexible(
               fit: FlexFit.tight,
               child: ChartBar(

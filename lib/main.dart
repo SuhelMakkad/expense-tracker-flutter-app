@@ -50,23 +50,23 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final isIOS = Platform.isIOS;
 
-  final List<Transaction> _userTransaction = [
-    // Transaction(
+  final List<Expense> _userExpense = [
+    // Expense(
     //     id: "t1",
     //     title: "New Shoes",
     //     amount: 7100,
     //     date: DateTime.now().subtract(Duration(days: 1))),
-    // Transaction(
+    // Expense(
     //     id: "t4",
     //     title: "Rent",
     //     amount: 9500,
     //     date: DateTime.now().subtract(Duration(days: 2))),
-    // Transaction(
+    // Expense(
     //     id: "t3",
     //     title: "Trip to Goa",
     //     amount: 9700,
     //     date: DateTime.now().subtract(Duration(days: 3))),
-    // Transaction(
+    // Expense(
     //     id: "t4",
     //     title: "Food",
     //     amount: 1500,
@@ -75,27 +75,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool _showChart = false;
 
-  List<Transaction> get _recentTransactions {
-    return _userTransaction.where((transaction) {
+  List<Expense> get _recentExpenses {
+    return _userExpense.where((transaction) {
       return transaction.date
           .isAfter(DateTime.now().subtract(Duration(days: 7)));
     }).toList();
   }
 
-  void _addNewTransaction(String title, double amount, DateTime chosenDate) {
-    final newTransaction = Transaction(
-      id: DateTime.now().toString(),
-      title: title,
-      amount: amount,
-      date: chosenDate,
-    );
-
+  void _addNewExpense(Expense transaction) {
     setState(() {
-      _userTransaction.add(newTransaction);
+      _userExpense.add(transaction);
     });
   }
 
-  void _startAddNewTransactions(BuildContext ctx) {
+  void _startAddNewExpenses(BuildContext ctx) {
     showModalBottomSheet(
         context: ctx,
         shape: const RoundedRectangleBorder(
@@ -103,13 +96,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         isScrollControlled: true,
         builder: (_) {
-          return NewTransaction(_addNewTransaction);
+          return NewExpense(_addNewExpense);
         });
   }
 
-  void _deleteTransaction(String id) {
+  void _deleteExpense(String id) {
     setState(() {
-      _userTransaction.removeWhere((element) => element.id == id);
+      _userExpense.removeWhere((element) => element.id == id);
     });
   }
 
@@ -141,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _showChart
           ? SizedBox(
               height: workingHeight * 0.8,
-              child: Chart(_recentTransactions),
+              child: Chart(_recentExpenses),
             )
           : transactionListWidget,
     ];
@@ -154,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return [
       SizedBox(
         height: workingHeight * 0.3,
-        child: Chart(_recentTransactions),
+        child: Chart(_recentExpenses),
       ),
       transactionListWidget
     ];
@@ -173,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                  onPressed: () => _startAddNewTransactions(context),
+                  onPressed: () => _startAddNewExpenses(context),
                   icon: const Icon(CupertinoIcons.add),
                 ),
               ],
@@ -190,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final transactionListWidget = SizedBox(
       height: _workingHeight * (_isLandscape ? 0.8 : 0.7),
-      child: TransactionList(_userTransaction, _deleteTransaction),
+      child: ExpenseList(_userExpense, _deleteExpense),
     );
 
     final pageBody = SafeArea(
@@ -213,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ? Container()
           : FloatingActionButton(
               child: const Icon(Icons.add),
-              onPressed: () => _startAddNewTransactions(context),
+              onPressed: () => _startAddNewExpenses(context),
             ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
