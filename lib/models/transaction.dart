@@ -1,45 +1,39 @@
-const String tableExpense = 'transactions';
+const String tableExpense = 'expenses';
 
 class ExpenseFields {
   static final List<String> values = [
-    uid,
     id,
     title,
     amount,
     date,
   ];
 
-  static const String uid = 'uid';
   static const String id = 'id';
-  static const String title = 'isImportant';
-  static const String amount = 'number';
-  static const String date = 'title';
+  static const String title = 'title';
+  static const String amount = 'amount';
+  static const String date = 'date';
 }
 
 class Expense {
-  final int? uid;
-  final String id;
+  final int? id;
   final String title;
   final double amount;
   final DateTime date;
 
   Expense({
-    this.uid,
-    required this.id,
+    this.id,
     required this.title,
     required this.amount,
     required this.date,
   });
 
   Expense copy({
-    int? uid,
-    String? id,
+    int? id,
     String? title,
     double? amount,
     DateTime? date,
   }) {
     return Expense(
-      uid: uid ?? this.uid,
       id: id ?? this.id,
       title: title ?? this.title,
       amount: amount ?? this.amount,
@@ -58,9 +52,9 @@ class Expense {
 
   static Expense fromJson(Map<String, Object?> json) {
     return Expense(
-      id: json[ExpenseFields.id] as String,
+      id: json[ExpenseFields.id] as int,
       title: json[ExpenseFields.title] as String,
-      amount: json[ExpenseFields.amount] as double,
+      amount: double.parse('${json[ExpenseFields.amount]}'),
       date: DateTime.parse(json[ExpenseFields.date] as String),
     );
   }

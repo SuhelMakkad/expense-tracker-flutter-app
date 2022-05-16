@@ -25,15 +25,16 @@ class ExpenseDatabase {
   }
 
   Future _createDB(Database db, int version) async {
+    const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
     const textType = 'TEXT NOT NULL';
     const integerType = 'INTEGER NOT NULL';
 
     await db.execute('''
 CREATE TABLE $tableExpense (
-  ${ExpenseFields.id} $textType,
+  ${ExpenseFields.id} $idType,
   ${ExpenseFields.title} $textType,
   ${ExpenseFields.amount} $integerType,
-  ${ExpenseFields.date} $textType,
+  ${ExpenseFields.date} $textType
   )
 ''');
   }
@@ -41,24 +42,24 @@ CREATE TABLE $tableExpense (
   Future<Expense> create(Expense transaction) async {
     final db = await instance.database;
 
-    final uid = await db.insert(tableExpense, transaction.toJson());
-    return transaction.copy(uid: uid);
+    final id = await db.insert(tableExpense, transaction.toJson());
+    return transaction.copy(id: id);
   }
 
-  Future<Expense> readExpense(int uid) async {
+  Future<Expense> readExpense(int id) async {
     final db = await instance.database;
 
     final maps = await db.query(
       tableExpense,
       columns: ExpenseFields.values,
-      where: '${ExpenseFields.uid} = ?',
-      whereArgs: [uid],
+      where: '${ExpenseFields.id} = ?',
+      whereArgs: [id],
     );
 
     if (maps.isNotEmpty) {
       return Expense.fromJson(maps.first);
     } else {
-      throw Exception('ID $uid not found');
+      throw Exception('ID $id not found');
     }
   }
 
@@ -75,18 +76,18 @@ CREATE TABLE $tableExpense (
     return db.update(
       tableExpense,
       expense.toJson(),
-      where: '${ExpenseFields.uid} = ?',
-      whereArgs: [expense.uid],
+      where: '${ExpenseFields.id} = ?',
+      whereArgs: [expense.id],
     );
   }
 
-  Future<int> delete(int uid) async {
+  Future<int> delete(int id) async {
     final db = await instance.database;
 
     return await db.delete(
       tableExpense,
-      where: '${ExpenseFields.uid} = ?',
-      whereArgs: [uid],
+      where: '${ExpenseFields.id} = ?',
+      whereArgs: [id],
     );
   }
 

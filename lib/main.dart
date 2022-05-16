@@ -51,39 +51,40 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final isIOS = Platform.isIOS;
 
-  List<Expense> _userExpense = [
-    // Expense(
-    //     id: "t1",
-    //     title: "New Shoes",
-    //     amount: 7100,
-    //     date: DateTime.now().subtract(Duration(days: 1))),
-    // Expense(
-    //     id: "t4",
-    //     title: "Rent",
-    //     amount: 9500,
-    //     date: DateTime.now().subtract(Duration(days: 2))),
-    // Expense(
-    //     id: "t3",
-    //     title: "Trip to Goa",
-    //     amount: 9700,
-    //     date: DateTime.now().subtract(Duration(days: 3))),
-    // Expense(
-    //     id: "t4",
-    //     title: "Food",
-    //     amount: 1500,
-    //     date: DateTime.now().subtract(Duration(days: 4))),
-  ];
-
+  List<Expense> _userExpense = [];
   bool _showChart = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _initExpenses();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    ExpenseDatabase.instance.close();
+  }
 
   List<Expense> get _recentExpenses {
     return _userExpense.where((transaction) {
-      return transaction.date
-          .isAfter(DateTime.now().subtract(Duration(days: 7)));
+      return transaction.date.isAfter(
+        DateTime.now().subtract(
+          const Duration(days: 7),
+        ),
+      );
     }).toList();
   }
 
-  void _addNewExpense(Expense transaction) {
+  void _initExpenses() async {
+    final storedExpenses = await ExpenseDatabase.instance.readAllExpense();
+    setState(() {
+      _userExpense = storedExpenses;
+    });
+  }
+
+  void _addNewExpense(Expense transaction) async {
+    transaction = await ExpenseDatabase.instance.create(transaction);
     setState(() {
       _userExpense.add(transaction);
     });
@@ -101,7 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  void _deleteExpense(String id) {
+  void _deleteExpense(int id) async {
+    id = await ExpenseDatabase.instance.delete(id);
     setState(() {
       _userExpense.removeWhere((element) => element.id == id);
     });

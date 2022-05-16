@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:uuid/uuid.dart';
 
 import 'adaptive_button.dart';
 
@@ -16,8 +15,6 @@ class NewExpense extends StatefulWidget {
 }
 
 class _NewExpenseState extends State<NewExpense> {
-  var uuid = Uuid();
-
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
 
@@ -40,9 +37,7 @@ class _NewExpenseState extends State<NewExpense> {
       return;
     }
 
-    var id = uuid.v4();
     var newExpense = Expense(
-      id: id,
       title: enteredTitle,
       amount: enteredAmount,
       date: (_selectedDate as DateTime),

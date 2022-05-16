@@ -6,7 +6,7 @@ import '../models/transaction.dart';
 
 class ExpenseList extends StatelessWidget {
   final List<Expense> transactions;
-  final Function(String) deleteExpense;
+  final Function(int) deleteExpense;
 
   ExpenseList(
     this.transactions,
@@ -40,8 +40,7 @@ class ExpenseList extends StatelessWidget {
             itemBuilder: (ctx, index) {
               Expense transaction = transactions[index];
               return ExpenseItem(
-                  transaction: transaction,
-                  deleteExpense: deleteExpense);
+                  transaction: transaction, deleteExpense: deleteExpense);
             },
             itemCount: transactions.length,
           );

@@ -11,7 +11,7 @@ class ExpenseItem extends StatelessWidget {
   }) : super(key: key);
 
   final Expense transaction;
-  final Function(String p1) deleteExpense;
+  final Function(int p1) deleteExpense;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class ExpenseItem extends StatelessWidget {
                 style: TextButton.styleFrom(
                   primary: ThemeData.light().errorColor,
                 ),
-                onPressed: () => deleteExpense(transaction.id),
+                onPressed: () => deleteExpense(transaction.id!),
                 icon: const Icon(
                   Icons.delete,
                 ),
@@ -51,7 +51,7 @@ class ExpenseItem extends StatelessWidget {
                 icon: const Icon(
                   Icons.delete,
                 ),
-                onPressed: () => deleteExpense(transaction.id),
+                onPressed: () => deleteExpense(transaction.id!),
               ),
       ),
     );
