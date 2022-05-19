@@ -85,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _addNewExpense(Expense transaction) async {
     transaction = await ExpenseDatabase.instance.create(transaction);
+    print(transaction.toJson());
     setState(() {
       _userExpense.add(transaction);
     });
@@ -92,18 +93,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _startAddNewExpenses(BuildContext ctx) {
     showModalBottomSheet(
-        context: ctx,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
-        ),
-        isScrollControlled: true,
-        builder: (_) {
-          return NewExpense(_addNewExpense);
-        });
+      context: ctx,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+      ),
+      isScrollControlled: true,
+      builder: (_) {
+        return NewExpense(_addNewExpense);
+      },
+    );
   }
 
   void _deleteExpense(int id) async {
-    id = await ExpenseDatabase.instance.delete(id);
+    await ExpenseDatabase.instance.delete(id);
+
     setState(() {
       _userExpense.removeWhere((element) => element.id == id);
     });
@@ -124,13 +127,14 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             Switch.adaptive(
-                activeColor: Theme.of(context).colorScheme.secondary,
-                value: _showChart,
-                onChanged: (value) {
-                  setState(() {
-                    _showChart = value;
-                  });
-                }),
+              activeColor: Theme.of(context).colorScheme.secondary,
+              value: _showChart,
+              onChanged: (value) {
+                setState(() {
+                  _showChart = value;
+                });
+              },
+            ),
           ],
         ),
       ),
